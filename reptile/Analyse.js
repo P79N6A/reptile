@@ -10,7 +10,9 @@ class Analyse {
     }
     async init(){
         let result = await GetData;
-        console.log(result)
+        var $ = cheerio.load(result[0]);
+        const text = $('#user_confirmsource').text();
+        console.log(text)
     }
 }   
 module.exports = Analyse;

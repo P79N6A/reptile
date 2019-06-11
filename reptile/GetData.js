@@ -4,7 +4,7 @@ class GetData {
     constructor(){
         this.index = 0;
         this.totalPages = 5;
-        this.data = [0];
+        this.data = [];
         this.baseUrl = 'http://www.jianshu.com/c/NEt52a?order_by=commented_at&page=';
     }
     getList(callback){
@@ -15,9 +15,10 @@ class GetData {
         }
         var promises = Promise.all(arr);
         promises.then(res =>{
-            console.log(res);
-            this.data = this.data.concat(res); 
+            this.data = this.data.concat(...res); 
+            // console.log(this.data)
             callback(this.data);
+            
             // if(this.index < this.totalPages){
             //     this.getList();
             // }else {
@@ -30,6 +31,8 @@ class GetData {
             Ajax.LoadData({
                 baseUrl: this.baseUrl + index,
                 methods: 'get'
+            }).then((data) => {
+                resolve(data.data)
             })
         })
     }
